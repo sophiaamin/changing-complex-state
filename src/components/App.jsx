@@ -8,22 +8,18 @@ function App() {
   });
 
   function handleChange(event) {
-    console.log(event.target.value);
-    const newValue = event.target.value;
-    const inputName = event.target.name;
-    // console.log(newValue);
-    // console.log(inputName);
+    const { value, name } = event.target;
     setFullName(prevValue => {
       console.log(prevValue);
-      if (inputName === "fName") {
+      if (name === "fName") {
         return {
-          firstName: newValue,
+          firstName: value,
           lastName: prevValue.lastName
         };
-      } else if (inputName === "lName") {
+      } else if (name === "lName") {
         return {
           firstName: prevValue.firstName,
-          lastName: newValue
+          lastName: value
         };
       }
     });
@@ -41,13 +37,13 @@ function App() {
           placeholder="First Name"
           onChange={handleChange}
           // controlled component - holds the latest state
-          // value={fullName.firstName}
+          value={fullName.firstName}
         />
         <input
           name="lName"
           placeholder="Last Name"
           onChange={handleChange}
-          // value ={fullName.lastName}
+          value={fullName.lastName}
         />
         <button>Submit</button>
       </form>
