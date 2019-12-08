@@ -1,34 +1,53 @@
 import React, { useState } from "react";
 
 function App() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  // store object to handle state. setFullName, will set the values for new Object
+  const [fullName, setFullName] = useState({
+    firstName: "",
+    lastName: ""
+  });
 
-  function handleFName(event) {
-    setFirstName(event.target.value);
-  }
-
-  function handleLName(event) {
-    setLastName(event.target.value);
+  function handleChange(event) {
+    console.log(event.target.value);
+    const newValue = event.target.value;
+    const inputName = event.target.name;
+    // console.log(newValue);
+    // console.log(inputName);
+    setFullName(prevValue => {
+      console.log(prevValue);
+      if (inputName === "fName") {
+        return {
+          firstName: newValue,
+          lastName: prevValue.lastName
+        };
+      } else if (inputName === "lName") {
+        return {
+          firstName: prevValue.firstName,
+          lastName: newValue
+        };
+      }
+    });
   }
 
   return (
     <div className="container">
       <h1>
-        Hello {firstName} {lastName}{" "}
+        {/* fetching props out of fullName object */}
+        Hello {fullName.firstName} {fullName.lastName}
       </h1>
       <form>
         <input
           name="fName"
           placeholder="First Name"
-          value={firstName}
-          onChange={handleFName}
+          onChange={handleChange}
+          // controlled component - holds the latest state
+          // value={fullName.firstName}
         />
         <input
           name="lName"
           placeholder="Last Name"
-          value={lastName}
-          onChange={handleLName}
+          onChange={handleChange}
+          // value ={fullName.lastName}
         />
         <button>Submit</button>
       </form>
